@@ -40,11 +40,13 @@ INSTALLED_APPS = [
     "blog",
     "blog_api",
     "rest_framework",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -53,6 +55,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "core.urls"
+
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://localhost:8000"]
 
 TEMPLATES = [
     {
@@ -83,7 +87,7 @@ DATABASES = {
     }
 }
 
-REST_FRAMEWORK = {"DEFAULT_PERMISSIONS_CLASSES": ["rest_framework.IsAuthenticated"]}
+REST_FRAMEWORK = {"DEFAULT_PERMISSIONS_CLASSES": ["rest_framework.AllowAny"]}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
