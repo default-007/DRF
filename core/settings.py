@@ -56,7 +56,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "core.urls"
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://localhost:8000"]
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000"]
 
 TEMPLATES = [
     {
@@ -87,7 +87,11 @@ DATABASES = {
     }
 }
 
-REST_FRAMEWORK = {"DEFAULT_PERMISSIONS_CLASSES": ["rest_framework.AllowAny"]}
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ]
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
