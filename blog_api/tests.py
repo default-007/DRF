@@ -8,16 +8,27 @@ from django.contrib.auth.models import User
 
 class PostTests(APITestCase):
     def test_view_post(self):
+        """
+        Ensure we can view all objects
+        """
         url = reverse("blog_api:listcreate")
         response = self.client.get(url, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def crete_post(self):
+    def create_post(self):
+        """
+        Ensure we can create a new post object and view object
+        """
         self.test_category = Category.objects.create(name="django")
         self.testuser = User.objects.create_user(
             username="testuser", password="1234567"
         )
+        self.client.login(username=self.testuser1.username, password="1234567")
         data = {"title": "new", "author": 1, "excerpt": "new", "content": "new"}
         url = reverse("blog_api:listcreate")
         response = self.client.post(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        root = reverse(("blog_api:detailcreate"), kwargs={"pk": 1})
+        response = self.client.get(url, format="json")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)

@@ -5,6 +5,7 @@ from rest_framework.permissions import (
     SAFE_METHODS,
     BasePermission,
     IsAdminUser,
+    DjangoModelPermissions,
     DjangoModelPermissionsOrAnonReadOnly,
 )
 
@@ -24,6 +25,7 @@ class PostList(generics.ListCreateAPIView):
     serializer_class = PostSerializer
 
 
-class PostDetail(generics.RetrieveDestroyAPIView):
+class PostDetail(generics.RetrieveUpdateDestroyAPIView, PostUserWritePermission):
+    permission_classes = [PostUserWritePermission]
     queryset = Post.objects.all()
     serializer_class = PostSerializer
