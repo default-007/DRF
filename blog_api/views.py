@@ -20,7 +20,7 @@ class PostUserWritePermission(BasePermission):
 
 
 class PostList(generics.ListCreateAPIView):
-    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
