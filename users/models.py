@@ -22,4 +22,16 @@ class CustomAccountManager(BaseUserManager):
 
     def create_user(self, email, user_name, first_name, password, other_fields):
         if not email:
-            raise ValueError(("You must provide a alid email address"))
+            raise ValueError(_("You must provide a valid email address"))
+
+        email = self.normalize_email(email)
+        user = self.model(
+            email=email,
+            user_name=user_name,
+            first_name=first_name,
+            password=password,
+            **other_fields
+        )
+        user.set_password(password)
+        user.save()
+        return user
