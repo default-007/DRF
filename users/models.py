@@ -53,3 +53,6 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
         "user_name",
         "first_name",
     ]
+
+    def __str__(self):
+        return self.user_name
